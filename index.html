@@ -16,9 +16,10 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <div class="container-fluid" id="result">
+    <div id="resultant">
+    <div class="container-fluid w-100" id="result" style="background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20201012/pngtree-white-cloud-on-blue-sky-weather-background-image_410050.jpg');">
         
-        <div id="body" style="background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20201012/pngtree-white-cloud-on-blue-sky-weather-background-image_410050.jpg');">
+        <div id="body">
             <div class="row">
              <div class="col-md-2"></div>
              <div class="col-md-8">
@@ -49,7 +50,7 @@
 
     </div>
     
-    
+</div>
 </body>
 <script>
      const back=()=>{
@@ -85,8 +86,9 @@ const search=async()=>{
     const timeString = date.toLocaleTimeString(); 
        
     
-        result.innerHTML=`
-            <div class="container-fluid" id="bg">
+    resultant.innerHTML=`
+            <div class="container-fluid p-0 m-0" id="bg" style=" background-image: url('https://images.squarespace-cdn.com/content/v1/561db783e4b0383208b79bb3/e5b947cf-f039-4cc6-a957-2e1942289662/IMG_1054_9-12-2022_4x6_96dpi_edited.jpg');">
+                <div id='bg1' class='container-fluid w-100 p-0 m-0'>
                   <div class="row min-vh-100">
                
                 <div class="col-md-2"></div>
@@ -98,7 +100,7 @@ const search=async()=>{
                            
                             <div class="border-0 shadow" style="height: 100vh; width: 100%; max-width: 400px; background-image: linear-gradient(to bottom left, rgba(22, 22, 216, 0.637), rgba(255, 255, 255, 0.8));">
                                 
-                            <i class="fa-solid fa-rotate-right text-light me-3" onclick="back()" style="float:right"></i>
+                            <i class="fa-solid fa-rotate-right text-light me-3 mt-3" onclick="back()" style="float:right"></i>
                               
                                     <div class="ms-3 text-center text-light mt-5">
                                         <h6>${dateString}</h6>      
@@ -119,7 +121,7 @@ const search=async()=>{
                                 <!-- Temperature display -->
                                 <div class="text-light mt-2 ms-3">
                                     <h5 class="ms-5"><span style="font-size: 80px;" id
-                                        ="celsius">${temp}<sup>o</sup>C </span> </h5><p class="text-center">(feels like${feels_like}<sup>o</sup>C )</p> 
+                                        ="celsius">${temp}<sup>o</sup>C </span> </h5><p class="text-center">(feels like ${feels_like}<sup>o</sup>C )</p> 
                                 </div>
                                 <div class="d-flex flex-column text-center text-light">
                                    <!-- humidity -->
@@ -133,8 +135,10 @@ const search=async()=>{
     
                                     
                                 </div>
-                                <div class="d-flex justify-content-center p-2" id="suggestions">
+                                
+                                <div class="d-flex justify-content-center p-2" style="font-size:12px; color:'grey';" id="suggestions">
                                       <!-- suggestions -->
+                                     
                                      
                                 </div>
                             </div>
@@ -145,7 +149,7 @@ const search=async()=>{
                 <!-- Empty columns for centering content -->
                 <div class="col-md-2"></div>
             </div>
-        
+        </div>
             </div>
            `
             function back(){
@@ -166,19 +170,19 @@ const search=async()=>{
          suggestions.innerHTML=` <p class="p-3 text-center"><i class="fa-solid fa-road"></i> Be cautious on the road</p>
           <p class="p-3"><i class="fa-solid fa-umbrella"></i> Carry an Umbrella</p>`
         
-    } else if (cloudCover > 75) {
-        weatherCondition = "Cloudy";
+    } else if (cloudCover > 75 || (data.weather.find(w => w.main === "Clouds"))) {
+        weatherCondition = "Clouds";
          bg.style=` background-image: url('https://www.shutterstock.com/image-photo/high-nature-view-large-white-600nw-2300524269.jpg');background-size:cover;height: 100vh;width: 100%;`
          icon.innerHTML=`<i class="fa-solid fa-cloud-sun fa-2x text-warning me-2"></i>`
          suggestions.innerHTML=` <p class="p-3 text-center"><i class="fa-solid fa-person-dress"></i> Bring a light jacket</p>
           <p class="p-3"><i class="fa-solid fa-umbrella"></i> Be prepared for rain</p>`
 
-    } else if (cloudCover > 20) {
+    } else if (cloudCover > 20 || (data.weather.find(w => w.main === "Partly Cloudy"))) {
         weatherCondition = "Partly Cloudy";
          bg.style=` background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20230609/pngtree-clouds-with-bright-sun-shining-through-them-is-shown-in-the-image_2949388.jpg');background-size:cover;height: 100vh;width: 100%;`
          icon.innerHTML=`<i class="fa-solid fa-cloud-sun fa-2x text-warning me-2"></i>`
-         suggestions.innerHTML=` <p class="p-3 text-center"><i class="fa-solid fa-binoculars"></i>Consider stargazing at night</p>
-          <p class="p-3"><i class="fa-solid fa-glasses"></i>Wear sunglasses </p>`
+         suggestions.innerHTML=` <p class="p-3 text-center"><i class="fa-solid fa-mask-face"></i> Wear a mask</p>
+          <p class="p-3"><i class="fa-solid fa-glasses"></i> Wear sunglasses </p>`
 
     } 
     else if(data.weather[0].main==='Mist'){
